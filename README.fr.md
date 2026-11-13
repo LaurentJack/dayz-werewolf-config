@@ -97,7 +97,7 @@ La date du serveur doit avancer : voir `serverTimePersistent` et la remarque sur
 | `StaminaRecovery` | 2.0 | Récupération d'endurance (> 1 = plus vite) |
 | `EnergyDrainPerSec` | 0.15 | Faim supplémentaire par seconde |
 | `NightVision` | true | Vision de nuit comme en plein jour |
-| `NightVisionExposure` | 7.0 | Luminosité ajoutée la nuit (7 = lunettes de vision nocturne du jeu) |
+| `NightVisionExposure` | 4.5 | Luminosité ajoutée la nuit (chaque point la double ; 7 = lunettes de vision nocturne du jeu) |
 | `SprintSpeedBonus` | 0 | m/s ajoutés au sprint. Expérimental, saccade en jeu : laisser à 0 |
 
 ### Retour à l'humain, messages et sons

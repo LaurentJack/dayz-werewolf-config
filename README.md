@@ -95,7 +95,7 @@ at dawn. DayZ's lunar calendar is not the one of the real sky. The server date h
 | `StaminaRecovery` | 2.0 | Stamina recovery (> 1 = faster) |
 | `EnergyDrainPerSec` | 0.15 | Extra hunger per second |
 | `NightVision` | true | Sees at night as in daylight |
-| `NightVisionExposure` | 7.0 | Brightness added at night (7 = the game's night-vision goggles) |
+| `NightVisionExposure` | 4.5 | Brightness added at night (each point doubles it; 7 = the game's night-vision goggles) |
 | `SprintSpeedBonus` | 0 | m/s added to the sprint. Experimental, stutters in game: leave at 0 |
 
 ### Back to human, messages and sounds

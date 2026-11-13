@@ -47,7 +47,7 @@
     "StaminaRecovery": 2.0,
     "EnergyDrainPerSec": 0.15,
     "NightVision": true,
-    "NightVisionExposure": 7.0,
+    "NightVisionExposure": 4.5,
     "SprintSpeedBonus": 0.0,
     "RevertShock": 60.0,
     "RevertEnergyLoss": 300.0,
