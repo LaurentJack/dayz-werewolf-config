@@ -14,6 +14,10 @@ This repository only holds the configuration, not the mod itself.
 | `serverDZ.cfg` | Example DayZ server configuration (English comments) | server root |
 | `serverDZ.fr.cfg` | Same file with French comments | server root, renamed `serverDZ.cfg` |
 
+## Community
+
+Questions, bug reports and news: [Discord](https://discord.gg/6ESyZDXsAx)
+
 ## Installation
 
 1. Load the mod on the server and on the clients: `-mod=@Werewolf`.
