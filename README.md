@@ -1,122 +1,125 @@
-# DayZ Werewolf – configuration serveur
+# DayZ Werewolf – server configuration
 
-Fichiers de configuration pour le mod DayZ **Werewolf** (lycanthropie) : une morsure de loup, ou un
-coup de griffes d'un loup-garou, transmet la malédiction. Après une incubation, le joueur se
-transforme la nuit (tête de loup, mains et pieds griffus, fourrure sur la peau) et redevient humain
-à l'aube.
+*[Version française](README.fr.md)*
 
-Ce dépôt ne contient que la configuration, pas le mod lui-même.
+Configuration files for the DayZ **Werewolf** mod (lycanthropy): a wolf bite, or a claw hit from a
+werewolf, passes on the curse. After an incubation period the player transforms at night (wolf head,
+clawed hands and feet, fur on the skin) and turns human again at dawn.
 
-| Fichier | Rôle | Où le placer |
+This repository only holds the configuration, not the mod itself.
+
+| File | Purpose | Where it goes |
 |---|---|---|
-| `WerewolfSettings.json` | Tous les réglages du mod, aux valeurs par défaut | `<profiles>/Werewolf/WerewolfSettings.json` |
-| `serverDZ.cfg` | Exemple de configuration du serveur DayZ | à la racine du serveur |
+| `WerewolfSettings.json` | Every setting of the mod, at its default value | `<profiles>/Werewolf/WerewolfSettings.json` |
+| `serverDZ.cfg` | Example DayZ server configuration (English comments) | server root |
+| `serverDZ.fr.cfg` | Same file with French comments | server root, renamed `serverDZ.cfg` |
 
 ## Installation
 
-1. Charger le mod côté serveur et côté client : `-mod=@Werewolf`.
-2. Copier `WerewolfSettings.json` dans le dossier `Werewolf` du dossier de profils du serveur
-   (celui passé à `-profiles=`). Si le fichier est absent, le mod le crée lui-même avec ces mêmes
-   valeurs au premier démarrage.
-3. Adapter `serverDZ.cfg` : nom du serveur, **mot de passe administrateur** (vide dans l'exemple),
-   nombre de joueurs, mission.
-4. Redémarrer le serveur après chaque modification du JSON : il n'est lu qu'au démarrage.
+1. Load the mod on the server and on the clients: `-mod=@Werewolf`.
+2. Copy `WerewolfSettings.json` into the `Werewolf` folder of the server profile folder (the one
+   given to `-profiles=`). If the file is missing, the mod creates it with these same values on the
+   first start.
+3. Adapt `serverDZ.cfg`: server name, **admin password** (empty in the example), player count,
+   mission.
+4. Restart the server after every change to the JSON: it is only read at startup.
 
-Un réglage absent du JSON garde sa valeur par défaut. Les durées sont en secondes réelles.
+A setting missing from the JSON keeps its default value. Durations are in real seconds.
 
-## Réglages (`WerewolfSettings.json`)
+The mod's in-game texts are translated into the 13 languages of DayZ.
 
-### Contamination
-| Réglage | Défaut | Rôle |
+## Settings (`WerewolfSettings.json`)
+
+### Contagion
+| Setting | Default | Purpose |
 |---|---|---|
-| `WolfBiteChance` | 0.10 | Chance par morsure de loup (0 à 1) |
-| `WerewolfBiteChance` | 0.50 | Chance par coup d'un loup-garou transformé |
-| `ContagionBareHandsOnly` | true | Seules les griffes contaminent, pas un coup porté avec une arme |
-| `ExtraWolfClassNames` | [] | Classes d'animaux moddés qui contaminent comme un loup |
+| `WolfBiteChance` | 0.10 | Chance per wolf bite (0 to 1) |
+| `WerewolfBiteChance` | 0.50 | Chance per hit from a transformed werewolf |
+| `ContagionBareHandsOnly` | true | Only claws spread the curse, not a hit with a weapon |
+| `ExtraWolfClassNames` | [] | Modded animal classes that spread the curse like a wolf |
 
-### Incubation et remède
-| Réglage | Défaut | Rôle |
+### Incubation and cure
+| Setting | Default | Purpose |
 |---|---|---|
-| `IncubationDuration` | 3600 | Durée entre la morsure et la malédiction installée |
-| `IncubationHalfwayWarning` | true | Message à mi-incubation |
-| `IncubationPainIntervalMin` / `Max` | 90 / 200 | Intervalle aléatoire entre deux douleurs légères |
-| `AconiteCuresCursed` | false | Le sérum d'aconit soigne aussi après l'incubation, même transformé |
-| `AconiteCureDelay` | 45 | Délai entre l'injection et la guérison (0 = instantané) |
-| `AconitePainInterval` | 8 | Intervalle entre deux accès de douleur pendant que le sérum agit |
-| `AconitePainShock` | 8 | Choc perdu à chaque accès (100 = inconscient) |
+| `IncubationDuration` | 3600 | Time between the bite and the curse taking hold |
+| `IncubationHalfwayWarning` | true | Message halfway through the incubation |
+| `IncubationPainIntervalMin` / `Max` | 90 / 200 | Random interval between two bouts of light pain |
+| `AconiteCuresCursed` | false | The aconite serum also cures after the incubation, even when transformed |
+| `AconiteCureDelay` | 45 | Delay between the injection and the cure (0 = instant) |
+| `AconitePainInterval` | 8 | Interval between two bouts of pain while the serum acts |
+| `AconitePainShock` | 8 | Shock lost at each bout (100 = unconscious) |
 
-Le sérum est l'objet `WerewolfAconiteSerum` ; pour le faire apparaître dans le butin, l'ajouter au
-`types.xml` de la mission.
+The serum is the `WerewolfAconiteSerum` item; add it to the mission's `types.xml` to make it spawn as
+loot.
 
-### Quelles nuits, quelles heures
-| Réglage | Défaut | Rôle |
+### Which nights, which hours
+| Setting | Default | Purpose |
 |---|---|---|
-| `TransformMode` | 0 | 0 = chaque nuit, 1 = pleine lune seulement, 2 = une nuit sur N |
-| `FullMoonMinIllumination` | 0.95 | Mode 1 : part éclairée minimale de la lune du jeu (0.95 ≈ 4 nuits par cycle, 0.99 ≈ 1 à 2) |
-| `TransformEveryNights` | 3 | Mode 2 : une nuit sur N, comptée sur le calendrier du jeu |
-| `NightMode` | 0 | 0 = nuit du moteur (lever/coucher du soleil de la carte), 1 = heures fixes |
-| `NightStartHour` / `NightEndHour` | 21 / 5 | Heures de jeu utilisées si `NightMode` = 1 |
+| `TransformMode` | 0 | 0 = every night, 1 = full moon only, 2 = one night out of N |
+| `FullMoonMinIllumination` | 0.95 | Mode 1: minimum lit fraction of the in-game moon (0.95 ≈ 4 nights per cycle, 0.99 ≈ 1 to 2) |
+| `TransformEveryNights` | 3 | Mode 2: one night out of N, counted on the in-game calendar |
+| `NightMode` | 0 | 0 = engine night (sunrise/sunset of the map), 1 = fixed hours |
+| `NightStartHour` / `NightEndHour` | 21 / 5 | In-game hours used when `NightMode` = 1 |
 
-En mode pleine lune, le mod lit **la lune du jeu elle-même**, celle que les joueurs voient dans le
-ciel : la transformation commence quand il fait nuit et que cette lune est levée et assez pleine,
-et se termine à son coucher ou à l'aube. Le calendrier lunaire de DayZ n'est pas celui du vrai ciel.
-La date du serveur doit avancer : voir `serverTimePersistent` et la remarque sur l'`init.c` dans
-`serverDZ.cfg`.
+In full-moon mode the mod reads **the moon of the game itself**, the one players see in the sky: the
+transformation starts when it is night and that moon is up and full enough, and ends when it sets or
+at dawn. DayZ's lunar calendar is not the one of the real sky. The server date has to move on: see
+`serverTimePersistent` and the note about `init.c` in `serverDZ.cfg`.
 
 ### Transformation
-| Réglage | Défaut | Rôle |
+| Setting | Default | Purpose |
 |---|---|---|
-| `ShiftDuration` | 25 | Durée de la transformation (douleur) après la tombée de la nuit |
-| `ShiftPainIntervalMin` / `Max` | 4 / 8 | Intervalle entre deux grognements/douleurs pendant la transformation |
-| `ShiftPainShock` | 5 | Choc perdu à chaque accès |
-| `CanUseHands` | true | Le loup-garou peut tenir des objets ; false = griffes seules, l'objet en main est lâché |
-| `FurOnSkin` | true | Fourrure sur la peau nue et les parties découvertes des vêtements |
-| `TransformOutfit` | tête, mains, pieds | Pièces posées à la transformation |
-| `FreedSlots` | Headgear, Mask, Eyewear, Gloves, Feet | Emplacements vidés (affaires rangées dans l'inventaire) et bloqués pendant la nuit |
+| `ShiftDuration` | 25 | Length of the change (pain) after nightfall |
+| `ShiftPainIntervalMin` / `Max` | 4 / 8 | Interval between two growls / bouts of pain during the change |
+| `ShiftPainShock` | 5 | Shock lost at each bout |
+| `CanUseHands` | true | The werewolf can hold items; false = claws only, the item in hands is dropped |
+| `FurOnSkin` | true | Fur on bare skin and on the uncovered parts of clothes |
+| `TransformOutfit` | head, hands, feet | Pieces put on at the transformation |
+| `FreedSlots` | Headgear, Mask, Eyewear, Gloves, Feet | Slots emptied (gear stored in the inventory) and blocked during the night |
 
-### Pouvoirs du loup-garou
-| Réglage | Défaut | Rôle |
+### Werewolf powers
+| Setting | Default | Purpose |
 |---|---|---|
-| `ClawDamage` | 30 | Santé retirée en plus à chaque coup à mains nues (un coup de poing fait 10) |
-| `ClawShock` | 25 | Choc en plus, sur les joueurs seulement |
-| `ClawBleedChance` | 0.5 | Chance de faire saigner un joueur |
-| `DamageResistance` | 0.5 | Part des dégâts reçus annulée (0 à 0.95) |
-| `HealthRegenPerSec` | 0.5 | Santé régénérée par seconde (max 100) |
-| `BloodRegenPerSec` | 10 | Sang régénéré par seconde (max 5000) |
-| `StopBleeding` | true | Les saignements se referment |
-| `StaminaDepletion` | 0.3 | Consommation d'endurance (< 1 = moins) |
-| `StaminaRecovery` | 2.0 | Récupération d'endurance (> 1 = plus vite) |
-| `EnergyDrainPerSec` | 0.15 | Faim supplémentaire par seconde |
-| `NightVision` | true | Vision de nuit comme en plein jour |
-| `NightVisionExposure` | 7.0 | Luminosité ajoutée la nuit (7 = lunettes de vision nocturne du jeu) |
-| `SprintSpeedBonus` | 0 | m/s ajoutés au sprint. Expérimental, saccade en jeu : laisser à 0 |
+| `ClawDamage` | 30 | Extra health removed by every bare-hand hit (a punch does 10) |
+| `ClawShock` | 25 | Extra shock, on players only |
+| `ClawBleedChance` | 0.5 | Chance to make a player bleed |
+| `DamageResistance` | 0.5 | Share of received damage cancelled (0 to 0.95) |
+| `HealthRegenPerSec` | 0.5 | Health regenerated per second (max 100) |
+| `BloodRegenPerSec` | 10 | Blood regenerated per second (max 5000) |
+| `StopBleeding` | true | Bleeding wounds close |
+| `StaminaDepletion` | 0.3 | Stamina consumption (< 1 = less) |
+| `StaminaRecovery` | 2.0 | Stamina recovery (> 1 = faster) |
+| `EnergyDrainPerSec` | 0.15 | Extra hunger per second |
+| `NightVision` | true | Sees at night as in daylight |
+| `NightVisionExposure` | 7.0 | Brightness added at night (7 = the game's night-vision goggles) |
+| `SprintSpeedBonus` | 0 | m/s added to the sprint. Experimental, stutters in game: leave at 0 |
 
-### Retour à l'humain, messages et sons
-| Réglage | Défaut | Rôle |
+### Back to human, messages and sounds
+| Setting | Default | Purpose |
 |---|---|---|
-| `RevertShock` | 60 | Choc à l'aube (100 = inconscient) |
-| `RevertEnergyLoss` | 300 | Faim à l'aube |
-| `ShowNotifications` | true | Messages à l'écran |
-| `EnableSounds` | true | Grognements entendus par les joueurs proches |
-| `GrowlIntervalMin` / `Max` | 40 / 90 | Intervalle aléatoire entre deux grognements en loup-garou |
+| `RevertShock` | 60 | Shock at dawn (100 = unconscious) |
+| `RevertEnergyLoss` | 300 | Hunger at dawn |
+| `ShowNotifications` | true | On-screen messages |
+| `EnableSounds` | true | Growls heard by nearby players |
+| `GrowlIntervalMin` / `Max` | 40 / 90 | Random interval between two growls in werewolf form |
 
-### Tests (laisser à false / 0 sur un serveur public)
-| Réglage | Rôle |
+### Testing (leave at false / 0 on a public server)
+| Setting | Purpose |
 |---|---|
-| `TestCurseOnConnect` | Maudit à la connexion, sans incubation |
-| `TestForceNight` | Toujours nuit pour la malédiction, quel que soit `TransformMode` |
-| `TestNightCycleSeconds` | Jour et nuit alternent, chacun de cette durée |
-| `TestGiveAconiteOnConnect` | Un sérum donné à la connexion |
-| `TestSpawnWolvesOnConnect` | Nombre de loups posés devant le joueur 15 s après la connexion |
-| `TestSpawnDummyOnConnect` | Faux joueur immobile posé 3 m devant, pour essayer griffes et contagion |
-| `DebugLog` | Changements d'état, coups et soins écrits dans `script_*.log` (préfixe `[Werewolf]`) |
+| `TestCurseOnConnect` | Cursed on connect, without incubation |
+| `TestForceNight` | Always night for the curse, whatever `TransformMode` says |
+| `TestNightCycleSeconds` | Day and night alternate, each lasting this long |
+| `TestGiveAconiteOnConnect` | One serum given on connect |
+| `TestSpawnWolvesOnConnect` | Number of wolves placed in front of the player 15 s after connecting |
+| `TestSpawnDummyOnConnect` | Motionless fake player placed 3 m ahead, to try claws and contagion |
+| `DebugLog` | State changes, hits and cures written to `script_*.log` (prefix `[Werewolf]`) |
 
-## Vérifier que le mod est chargé
+## Checking that the mod is loaded
 
-Trente secondes après son démarrage, le serveur écrit dans `script_*.log` une ligne du type :
+Thirty seconds after it starts, the server writes a line like this to `script_*.log`:
 
 ```
 [Werewolf] date 2026/10/17 17h, TransformMode 1, moon of the game lit 0.96 now (needs 0.95, 0 = below the horizon) -> the curse is awake
 ```
 
-Elle indique la date du serveur, le mode choisi et si la malédiction est éveillée à cet instant.
+It gives the server date, the chosen mode and whether the curse is awake at that moment.
